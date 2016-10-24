@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GarnetCrow</string>
+    <string name="menu_search">search</string>
+    <string name="menu_spinner">time</string>
+</resources>
