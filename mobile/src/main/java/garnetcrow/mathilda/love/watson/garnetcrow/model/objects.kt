@@ -29,6 +29,7 @@ object BusHelper {
 
 object repository {
 
+
     val albumTimes = arrayOf(
             "~君の家に着くまでずっと走ってゆく~", "first soundscope~水のない晴れた海へ~", "SPARKLE~筋书き通りのスカイブルー~",
             "Crystallize~君という光~", "I'm waiting 4 you", "THE TWILIGHT VALLEY", "LOCKS",
@@ -47,6 +48,19 @@ object repository {
             "Doing all right", "花は咲いて ただ摇れて",
             "Over Drive", "Smiley Nation", "Misty Mystery", "Nostalgia"
     )
+
+    val dvd2003 = Album("first live scope and document movie", "2/26/2003", ALBUM_TYPE_DVD)
+    val dvd2004 = Album("GARNET CROW live scope 2004 ～君という光～", "6/16/2004", ALBUM_TYPE_DVD)
+    val dvd2005 = Album("5thAnniversary DVD \"le 5 eme Anniversaire\" L'Histoire de 2000 a 2005", "7/20/2005", ALBUM_TYPE_DVD)
+    val dvd2007 = Album("GARNET CROW LIVESCOPE OF THE TWILIGHT VALLEY 初回限定盘/通常盘", "6/27/2007", ALBUM_TYPE_DVD)
+    val dvd2008 = Album("GARNET CROW Special live in 仁和寺", "12/17/2008", ALBUM_TYPE_DVD)
+    val dvd2009 = Album("Are You Ready To Lock On?! ～livescope at the JCB Hall～", "5/20/2009", ALBUM_TYPE_DVD)
+    val dvd2010 = Album("GARNET CROW livescope 2010 ～THE BEST TOUR～", "8/4/2010", ALBUM_TYPE_DVD)
+    val dvd2011 = Album("GARNET CROW livescope 2009 ～夜明けのSoul～", "6/29/2011", ALBUM_TYPE_DVD)
+    val dvd2011plus = Album("GARNET CROW livescope 2010+ ～welcome to the parallel universe！～", "6/29/2011", ALBUM_TYPE_DVD)
+    val dvd2012 = Album("GARNET CROW livescope2012 ~ the tales of memories ~", "9/26/2012", ALBUM_TYPE_DVD)
+
+    val dvdsList = arrayOf(dvd2003, dvd2004, dvd2005, dvd2007, dvd2008, dvd2009, dvd2010, dvd2011, dvd2011plus, dvd2012)
 
     val single2000_3_29 = Album("Mysterious Eyes", "3/29/2000", ALBUM_TYPE_SINGLE)
     val single2000_3_29_2 = Album("君の家に着くまでずっと走ってゆく", "3/29/2000", ALBUM_TYPE_SINGLE)

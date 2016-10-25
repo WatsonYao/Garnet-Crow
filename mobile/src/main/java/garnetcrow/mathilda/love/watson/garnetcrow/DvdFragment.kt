@@ -11,23 +11,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import garnetcrow.mathilda.love.watson.garnetcrow.helpers.bindView
-import garnetcrow.mathilda.love.watson.garnetcrow.model.Song
+import garnetcrow.mathilda.love.watson.garnetcrow.model.Album
 import garnetcrow.mathilda.love.watson.garnetcrow.model.repository
 
 /**
  * Created by watson on 16/10/24.
  */
-class SingleFragment : BaseFragment() {
+class DvdFragment : BaseFragment() {
 
     companion object {
-        val KEY_YEAR_POSITION = "year"
-
-        fun newInstance(position: Int): Fragment {
-            val fragment = SingleFragment()
-            val args = Bundle()
-            args.putInt(KEY_YEAR_POSITION, position)
-            fragment.arguments = args
-            return fragment
+        fun newInstance(): Fragment {
+            return DvdFragment()
         }
     }
 
@@ -41,13 +35,13 @@ class SingleFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recycler.layoutManager = LinearLayoutManager(activity)
-        recycler.adapter = AlbumAdater(activity, arguments.getInt(KEY_YEAR_POSITION))
+        recycler.adapter = AlbumAdater(activity)
     }
 
-    inner class AlbumAdater(val activity: Activity, val positionOut: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    inner class AlbumAdater(val activity: Activity) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-        override fun getItemCount(): Int = repository.songsListSingle[positionOut].size
+        override fun getItemCount(): Int = repository.dvdsList.size
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
             val hold = holder as AlbumViewHolder
@@ -61,7 +55,7 @@ class SingleFragment : BaseFragment() {
             return AlbumViewHolder(LayoutInflater.from(activity).inflate(R.layout.single_list_item, parent, false));
         }
 
-        fun getItemValue(position: Int): Song = repository.songsListSingle[positionOut][position]
+        fun getItemValue(position: Int): Album = repository.dvdsList[position]
 
     }
 

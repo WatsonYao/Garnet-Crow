@@ -1,6 +1,7 @@
 package garnetcrow.mathilda.love.watson.garnetcrow
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.view.MenuItemCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -89,29 +90,40 @@ class MainActivity : AppCompatActivity() {
         drawerList.setItemChecked(position, true)
         title = drawMenu[position]
         drawerLayout.closeDrawer(drawerLeft)
+        spinner.visibility = View.GONE
 
-        if (title == "专辑") {
-            spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, repository.albumTimes)
-            spinner.onItemSelectedListener = YearSelectedListener() // set the listener,
-            supportFragmentManager.beginTransaction().replace(R.id.content, AlbumFragment.newInstance(0)).commit()
-        } else if (title == "单曲") {
-            spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, repository.singleNames)
-            spinner.onItemSelectedListener = SingleSelectedListener() // set the listener,
-            supportFragmentManager.beginTransaction().replace(R.id.content, SingleFragment.newInstance(0)).commit()
+        when (title) {
+            "专辑" -> {
+                spinner.visibility = View.VISIBLE
+                spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, repository.albumTimes)
+                spinner.onItemSelectedListener = YearSelectedListener() // set the listener,
+                replaceFragment(AlbumFragment.newInstance(0))
+            }
+            "单曲" -> {
+                spinner.visibility = View.VISIBLE
+                spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, repository.singleNames)
+                spinner.onItemSelectedListener = SingleSelectedListener() // set the listener,
+                replaceFragment(SingleFragment.newInstance(0))
+            }
+            "DVDs" -> replaceFragment(DvdFragment.newInstance())
+            "关于" -> replaceFragment(AboutFragment.newInstance())
+            "成员" -> replaceFragment(MemberFragment.newInstance())
         }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.content, fragment).commit()
     }
 
     private fun updateYear(position: Int) {
         if (title == "专辑") {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.content, AlbumFragment.newInstance(position)).commit()
+            replaceFragment(AlbumFragment.newInstance(position))
         }
     }
 
     private fun updateSingle(position: Int) {
         if (title == "单曲") {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.content, SingleFragment.newInstance(position)).commit()
+            replaceFragment(SingleFragment.newInstance(position))
         }
     }
 

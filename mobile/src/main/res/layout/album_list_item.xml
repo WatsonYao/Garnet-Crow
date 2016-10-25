@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="4dp"
+    card_view:cardBackgroundColor="@color/colorPrimary"
     card_view:cardElevation="1dp">
 
     <RelativeLayout
@@ -19,8 +20,7 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="56dp"
-            android:src="@color/colorPrimary"/>
+            android:minHeight="300dp"/>
 
         <TextView
             android:id="@+id/name"

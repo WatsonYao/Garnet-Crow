@@ -7,8 +7,11 @@ import android.support.v4.app.Fragment
  */
 abstract class BaseFragment : Fragment() {
 
+    var toolbarColor: Int? = null
+
     override fun onResume() {
         super.onResume()
+        if (toolbarColor == null) toolbarColor = resources.getColor(R.color.colorPrimary)
     }
 
     override fun onPause() {

@@ -7,10 +7,4 @@
         android:title="@string/menu_spinner"
         app:actionViewClass="android.widget.Spinner"
         app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/menu_search"
-        android:icon="@drawable/places_ic_search"
-        android:title="@string/menu_search"
-        app:showAsAction="ifRoom"/>
-
 </menu>
