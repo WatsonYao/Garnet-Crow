@@ -38,7 +38,7 @@
         <RelativeLayout
             android:layout_width="240dp"
             android:layout_height="200dp"
-            android:background="#eee">
+            android:background="#deee">
         </RelativeLayout>
 
         <ListView
@@ -46,7 +46,7 @@
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="#eee"
+            android:background="#deee"
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"/>

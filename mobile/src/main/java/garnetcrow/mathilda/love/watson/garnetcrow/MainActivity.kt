@@ -18,12 +18,14 @@ import garnetcrow.mathilda.love.watson.garnetcrow.model.repository
 
 class MainActivity : AppCompatActivity() {
 
-    val drawMenu = arrayOf("专辑", "单曲", "DVDs", "成员", "关于")
+    val drawMenu = arrayOf("成员", "专辑", "单曲", "DVDs", "关于")
     val drawerLayout: DrawerLayout by bindView(R.id.drawer_layout)
     val drawerList: ListView by bindView(R.id.left_drawer)
     val drawerLeft: LinearLayout by bindView(R.id.drawer_left)
     val toolbar: Toolbar by bindView(R.id.gc_toolbar)
     lateinit var spinner: Spinner
+    var spinnerMenu: MenuItem? = null
+    var indexOfMenu = 0
 
     override fun onPause() {
         super.onPause()
@@ -57,15 +59,14 @@ class MainActivity : AppCompatActivity() {
 
         drawerList.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, drawMenu)
         drawerList.onItemClickListener = DrawerItemClickListener()
-
+        drawerList.setItemChecked(0, true)
+        replaceFragment(MemberFragment.newInstance(), 1)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
-        val item = menu?.findItem(R.id.mmenu_spinner)
-        spinner = MenuItemCompat.getActionView(item) as Spinner
-        spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, repository.albumTimes)
-        spinner.onItemSelectedListener = YearSelectedListener() // set the listener,
+        spinnerMenu = menu?.findItem(R.id.mmenu_spinner)
+        spinner = MenuItemCompat.getActionView(spinnerMenu) as Spinner
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -78,7 +79,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun homeClick() {
-        WLog.log().i("homeClick")
         if (drawerLayout.isDrawerOpen(drawerLeft)) {
             drawerLayout.closeDrawer(drawerLeft)
         } else {
@@ -87,43 +87,54 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun selectMenu(position: Int) {
-        drawerList.setItemChecked(position, true)
-        title = drawMenu[position]
-        drawerLayout.closeDrawer(drawerLeft)
-        spinner.visibility = View.GONE
+        if (position != indexOfMenu) {
+            drawerList.setItemChecked(position, true)
+            title = drawMenu[position]
+            spinnerMenu?.isVisible = false
 
-        when (title) {
-            "专辑" -> {
-                spinner.visibility = View.VISIBLE
-                spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, repository.albumTimes)
-                spinner.onItemSelectedListener = YearSelectedListener() // set the listener,
-                replaceFragment(AlbumFragment.newInstance(0))
+            when (title) {
+                "专辑" -> {
+                    spinnerMenu?.isVisible = true
+                    spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, repository.albumTimes)
+                    spinner.onItemSelectedListener = YearSelectedListener() // set the listener,
+                    replaceFragment(AlbumFragment.newInstance(0), 0)
+                }
+                "单曲" -> {
+                    spinnerMenu?.isVisible = true
+                    spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, repository.singleNames)
+                    spinner.onItemSelectedListener = SingleSelectedListener() // set the listener,
+                    replaceFragment(SingleFragment.newInstance(0), 0)
+                }
+                "DVDs" -> replaceFragment(DvdFragment.newInstance(), 0)
+                "关于" -> replaceFragment(AboutFragment.newInstance(), 1)
+                "成员" -> replaceFragment(MemberFragment.newInstance(), 1)
             }
-            "单曲" -> {
-                spinner.visibility = View.VISIBLE
-                spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, repository.singleNames)
-                spinner.onItemSelectedListener = SingleSelectedListener() // set the listener,
-                replaceFragment(SingleFragment.newInstance(0))
-            }
-            "DVDs" -> replaceFragment(DvdFragment.newInstance())
-            "关于" -> replaceFragment(AboutFragment.newInstance())
-            "成员" -> replaceFragment(MemberFragment.newInstance())
         }
+
+        drawerLayout.closeDrawer(drawerLeft)
+        indexOfMenu = position
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    private fun replaceFragment(fragment: Fragment, type: Int) {
+        if (type == 1) {
+//            val slideTransition = Slide(Gravity.LEFT)
+//            slideTransition.duration = resources.getInteger(R.integer.anim_duration_long).toLong()
+//            fragment.reenterTransition = slideTransition
+//            fragment.exitTransition = slideTransition
+//            fragment.sharedElementEnterTransition = ChangeBounds()
+        }
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment).commit()
     }
 
     private fun updateYear(position: Int) {
         if (title == "专辑") {
-            replaceFragment(AlbumFragment.newInstance(position))
+            replaceFragment(AlbumFragment.newInstance(position), 0)
         }
     }
 
     private fun updateSingle(position: Int) {
         if (title == "单曲") {
-            replaceFragment(SingleFragment.newInstance(position))
+            replaceFragment(SingleFragment.newInstance(position), 0)
         }
     }
 

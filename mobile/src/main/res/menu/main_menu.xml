@@ -5,6 +5,7 @@
     <item
         android:id="@+id/mmenu_spinner"
         android:title="@string/menu_spinner"
+        android:visible="false"
         app:actionViewClass="android.widget.Spinner"
         app:showAsAction="ifRoom"/>
 </menu>

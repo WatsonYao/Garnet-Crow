@@ -37,4 +37,6 @@ class AboutFragment : BaseFragment() {
     private fun openCustomTab(url: String) {
         CustomTabsIntent.Builder().setToolbarColor(toolbarColor ?: 0).build().launchUrl(activity, Uri.parse(url))
     }
+
+
 }
